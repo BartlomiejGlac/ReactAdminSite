@@ -1,0 +1,25 @@
+{
+  "name": "reacta-admin-center",
+  "version": "1.0.0",
+  "description": "Simple project created during course on Pluralsignt",
+  "main": "index.js",
+  "dependencies": {
+    "gulp-connect": "^5.0.0",
+    "gulp": "^3.9.1",
+    "gulp-open": "^2.0.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BartlomiejGlac/ReactAdminSite.git"
+  },
+  "author": "Bartlomiej Glac",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BartlomiejGlac/ReactAdminSite/issues"
+  },
+  "homepage": "https://github.com/BartlomiejGlac/ReactAdminSite#readme"
+}
