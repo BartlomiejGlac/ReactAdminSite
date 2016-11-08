@@ -5,6 +5,7 @@ var browserify = require('browserify');
 var reactify = require('reactify');
 var source = require('vinyl-source-stream');
 var concat = require('gulp-concat');
+var eslint = require('gulp-eslint');
 
 //Starts Local development server
 var config = {
@@ -58,9 +59,17 @@ gulp.task('js', function () {
         .pipe(connect.reload());
 });
 
-gulp.task('watch', function () {
-    gulp.watch(config.paths.html, ['html']);
-    gulp.watch(config.paths.js, ['js']);
+gulp.task('eslint', function () {
+    return gulp.src(config.paths.js)
+        .pipe(eslint({
+            config: 'eslint.config.json'
+        }))
+        .pipe(eslint.format());
 });
 
-gulp.task('default', ['html', 'css', 'js', 'open', 'watch',]);
+gulp.task('watch', function () {
+    gulp.watch(config.paths.html, ['html']);
+    gulp.watch(config.paths.js, ['js', 'eslint']);
+});
+
+gulp.task('default', ['html', 'css', 'js','eslint', 'open', 'watch']);
