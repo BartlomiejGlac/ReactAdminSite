@@ -24,7 +24,7 @@ var AuthorsPage = React.createClass({
                 <h1>Authors</h1>
                 <AuthorList authors={this.state.authors}/>
             </div>
-        )
+        );
     }
 });
 
