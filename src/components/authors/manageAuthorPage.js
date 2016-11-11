@@ -32,15 +32,24 @@ var ManageAuthorPage = React.createClass({
         return this.setState({author: this.state.author});
     },
 
+    componentWillMount: function () {
+
+        var authorID = this.props.params.id;
+
+        if (authorID) {
+            this.setState({author: AuthorAPI.getAuthorById(authorID)});
+        }
+    },
+
     authorFormIsValid: function () {
         var formIsValid = true;
         this.state.errors = {}
         if (this.state.author.firstName.length < 3) {
-            this.state.errors.firstName = 'First name must be at least 3 char.'
+            this.state.errors.firstName = 'First name must be at least 3 char.';
             formIsValid = false;
         }
         if (this.state.author.lastName.length < 3) {
-            this.state.errors.lastName = 'Last name must be at least 3 char.'
+            this.state.errors.lastName = 'Last name must be at least 3 char.';
             formIsValid = false;
         }
         this.setState({errors: this.state.errors});
