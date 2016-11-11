@@ -1,7 +1,8 @@
 var React = require('react');
 var Router = require('react-router');
 var AuthorForm = require('./authorForm');
-var AuthorAPI = require('../../api/authorApi');
+var AuthorActions = require('../../actions/authorActions');
+var AuthorStore = require('../../stores/authorStore');
 var toastr = require('toastr');
 var ManageAuthorPage = React.createClass({
     getInitialState: function () {
@@ -37,13 +38,13 @@ var ManageAuthorPage = React.createClass({
         var authorID = this.props.params.id;
 
         if (authorID) {
-            this.setState({author: AuthorAPI.getAuthorById(authorID)});
+            this.setState({author: AuthorStore.getAuthorById(authorID)});
         }
     },
 
     authorFormIsValid: function () {
         var formIsValid = true;
-        this.state.errors = {}
+        this.state.errors = {};
         if (this.state.author.firstName.length < 3) {
             this.state.errors.firstName = 'First name must be at least 3 char.';
             formIsValid = false;
@@ -61,9 +62,13 @@ var ManageAuthorPage = React.createClass({
         if (!this.authorFormIsValid()) {
             return;
         }
-
-        AuthorAPI.saveAuthor(this.state.author);
-        this.setState({dirty:false});
+        if (this.state.author.id) {
+            AuthorActions.updateAuthor(this.state.author)
+        }
+        else {
+            AuthorActions.createAuthor(this.state.author);
+        }
+        this.setState({dirty: false});
         toastr.success('Author Saved');
         this.transitionTo('authors');
     },
